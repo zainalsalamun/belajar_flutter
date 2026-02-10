@@ -91,6 +91,8 @@ class UserProvider extends ChangeNotifier {
       } else {
         _error = 'Gagal mengambil data. Status: ${response.statusCode}';
       }
+      // print(response.statusCode);
+      // print(response.body);
     } catch (e) {
       _error = 'Terjadi kesalahan: $e';
     } finally {

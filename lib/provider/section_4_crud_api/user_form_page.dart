@@ -24,7 +24,7 @@ class _UserFormPageState extends State<UserFormPage> {
   void initState() {
     super.initState();
     _nameController = TextEditingController(text: widget.user?.firstName ?? '');
-    _jobController = TextEditingController(text: 'Programmer'); // Default job
+    _jobController = TextEditingController(text: 'Guru'); // Default job
     _emailController = TextEditingController(text: widget.user?.email ?? '');
   }
 

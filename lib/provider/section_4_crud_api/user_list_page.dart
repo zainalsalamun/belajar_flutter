@@ -29,7 +29,9 @@ class _UserListPageState extends State<UserListPage> {
       body: Consumer<UserProvider>(
         builder: (context, provider, child) {
           if (provider.isLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(color: Colors.blue),
+            );
           }
 
           if (provider.error != null) {
