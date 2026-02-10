@@ -101,4 +101,32 @@ class UserDioController extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  /// Delete all users
+  Future<bool> deleteAllUsers() async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      // Create a copy of the list to iterate
+      final usersToDelete = List<User>.from(_users);
+
+      // Execute delete for each user in parallel
+      await Future.wait(
+        usersToDelete.map((user) => _service.deleteUser(user.id)),
+      );
+
+      _users.clear();
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _error = e.toString();
+      notifyListeners();
+      return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
 }

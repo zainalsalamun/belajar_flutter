@@ -27,6 +27,19 @@ class _UserListDioViewState extends State<UserListDioView> {
         title: const Text('Daftar User (Dio + MVC)'),
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white,
+        actions: [
+          Consumer<UserDioController>(
+            builder: (context, controller, child) {
+              if (controller.users.isEmpty) {
+                return const SizedBox.shrink();
+              }
+              return IconButton(
+                icon: const Icon(Icons.delete_forever),
+                onPressed: () => _confirmDeleteAll(context, controller),
+              );
+            },
+          ),
+        ],
       ),
       body: Consumer<UserDioController>(
         builder: (context, controller, child) {
@@ -151,6 +164,41 @@ class _UserListDioViewState extends State<UserListDioView> {
                   }
                 },
                 child: const Text('Hapus'),
+              ),
+            ],
+          ),
+    );
+  }
+
+  void _confirmDeleteAll(BuildContext context, UserDioController controller) {
+    showDialog(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Hapus Semua User'),
+            content: const Text('Yakin ingin menghapus semua user?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Batal'),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                ),
+                onPressed: () async {
+                  Navigator.pop(context); // Close dialog
+                  final success = await controller.deleteAllUsers();
+                  if (success && context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Semua user berhasil dihapus'),
+                      ),
+                    );
+                  }
+                },
+                child: const Text('Hapus Semua'),
               ),
             ],
           ),
