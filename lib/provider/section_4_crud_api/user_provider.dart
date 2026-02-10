@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'user_model.dart';
 
+import '../../config/api_constants.dart';
+
 class UserProvider extends ChangeNotifier {
   List<User> _users = [];
   bool _isLoading = false;
@@ -13,13 +15,13 @@ class UserProvider extends ChangeNotifier {
   String? get error => _error;
 
   // Base URL dari reqres.in
-  final String _baseUrl = 'https://reqres.in/api/users';
+  final String _baseUrl = '${ApiConstants.baseUrl}/users';
 
   // Header standar untuk request API
   // Beberapa server memblokir request tanpa User-Agent
   Map<String, String> get _headers => {
     'Content-Type': 'application/json',
-    'x-api-key': 'reqres_da8d088c05f84666b8d34b95e190bded',
+    'x-api-key': ApiConstants.apiKey,
   };
 
   // CREATE: Menambahkan user baru
