@@ -13,10 +13,7 @@ class UserControllerGetx extends GetxController {
 
   final String _baseUrl = '${ApiConstants.baseUrl}/users';
 
-  Map<String, String> get _headers => {
-    'Content-Type': 'application/json',
-    'x-api-key': ApiConstants.apiKey,
-  };
+  Map<String, String> get _headers => {'Content-Type': 'application/json'};
 
   @override
   void onInit() {
@@ -68,7 +65,7 @@ class UserControllerGetx extends GetxController {
 
     try {
       final response = await http.get(
-        Uri.parse('$_baseUrl?page=1&per_page=10'),
+        Uri.parse(ApiConstants.baseUrl),
         headers: _headers,
       );
 
